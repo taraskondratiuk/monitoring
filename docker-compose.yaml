@@ -14,9 +14,9 @@ services:
     ports:
       - '9090:9090'
     networks:
-      - network1
+      - monitoring-network
 
 networks:
-  network1:
-      name: my-pre-existing-network
+  monitoring-network:
+      name: $NETWORK_NAME
       external: true
