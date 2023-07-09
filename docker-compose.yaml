@@ -10,6 +10,11 @@ services:
     restart:
       unless-stopped
     volumes:
-      - /data/prometheus:/prometheus
+      - $PROMETHEUS_VOLUME:/prometheus
     ports:
       - '9090:9090'
+
+networks:
+  network1:
+      name: my-pre-existing-network
+      external: true

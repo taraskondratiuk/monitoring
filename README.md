@@ -1,0 +1,1 @@
+$PROMETHEUS_VOLUME= docker compose up -d
