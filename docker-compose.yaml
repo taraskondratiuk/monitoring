@@ -13,6 +13,8 @@ services:
       - $PROMETHEUS_VOLUME:/prometheus
     ports:
       - '9090:9090'
+    networks:
+      - network1
 
 networks:
   network1:
