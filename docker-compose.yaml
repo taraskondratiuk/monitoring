@@ -15,8 +15,23 @@ services:
       - '9090:9090'
     networks:
       - monitoring-network
+  grafana:
+    image:
+      grafana/grafana-enterprise
+    container_name:
+      garafana
+    hostname:
+      grafana
+    restart:
+      unless-stopped
+    volumes:
+      - $GRAFANA_VOLUME:/var/lib/grafana
+    ports:
+      - '3000:3000'
+    networks:
+      - monitoring-network
 
 networks:
   monitoring-network:
-      name: $NETWORK_NAME
-      external: true
+    name: $NETWORK_NAME
+    external: true

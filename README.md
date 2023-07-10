@@ -1,1 +1,1 @@
-PROMETHEUS_VOLUME= docker compose up -d
+NETWORK_NAME= PROMETHEUS_VOLUME= GRAFANA_VOLUME= docker compose up -d
