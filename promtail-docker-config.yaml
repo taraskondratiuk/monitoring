@@ -9,6 +9,13 @@ clients:
   - url: http://loki:3100/loki/api/v1/push
 
 scrape_configs:
+  - job_name: system
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: varlogs
+          __path__: /var/log/*log
 
   - job_name: containers
     static_configs:
@@ -21,29 +28,25 @@ scrape_configs:
     pipeline_stages:
       - json:
           expressions:
-            log: log
+            output: log
             stream: stream
-            time: time
-            tag: attrs.tag
-            compose_project: attrs."com.docker.compose.project"
-            compose_service: attrs."com.docker.compose.service"
-            stack_name: attrs."com.docker.stack.namespace"
-            swarm_service_name: attrs."com.docker.swarm.service.name"
-            swarm_task_name: attrs."com.docker.swarm.task.name"
+            attrs:
+      - json:
+          expressions:
+            tag:
+          source: attrs
       - regex:
-          expression: "^/var/lib/docker/containers/(?P<container_id>.{12}).+/.+-json.log$"
-          source: filename
+          expression: (?P<image_name>(?:[^|]*[^|])).(?P<container_name>(?:[^|]*[^|])).(?P<image_id>(?:[^|]*[^|])).(?P<container_id>(?:[^|]*[^|]))
+          source: tag
       - timestamp:
           format: RFC3339Nano
           source: time
       - labels:
-          stream:
-          container_id:
           tag:
-          compose_project:
-          compose_service:
-          stack_name:
-          swarm_service_name:
-          swarm_task_name:
+          stream:
+          image_name:
+          container_name:
+          image_id:
+          container_id:
       - output:
-          source: log
+          source: output

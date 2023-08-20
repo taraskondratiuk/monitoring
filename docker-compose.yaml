@@ -36,6 +36,8 @@ services:
       loki
     ports:
       - "3100:3100"
+    restart:
+      unless-stopped
     volumes:
       - ./loki-docker-config.yaml:/etc/loki/loki-docker-config.yaml
     command: -config.file=/etc/loki/loki-docker-config.yaml
@@ -45,6 +47,8 @@ services:
     image: grafana/promtail:2.8.4
     container_name:
       promtail
+    restart:
+      unless-stopped
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers
       - ./promtail-docker-config.yaml:/etc/promtail/promtail-docker-config.yaml
