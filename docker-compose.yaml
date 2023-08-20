@@ -45,7 +45,7 @@ services:
       promtail
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers
-      - promtail-docker-config.yaml:/etc/promtail
+      - ./promtail-docker-config.yaml:/etc/promtail/promtail-docker-config.yaml
     command: -config.file=/etc/promtail/promtail-docker-config.yaml
     networks:
       - monitoring-network
