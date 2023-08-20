@@ -19,7 +19,7 @@ services:
     image:
       grafana/grafana-enterprise
     container_name:
-      garafana
+      grafana
     hostname:
       grafana
     restart:
