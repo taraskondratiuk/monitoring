@@ -19,7 +19,6 @@ scrape_configs:
       __path__: /var/log/*log
 
 - job_name: containers
-  entry_parser: raw
 
   static_configs:
   - targets:
