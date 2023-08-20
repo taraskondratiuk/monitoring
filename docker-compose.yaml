@@ -15,6 +15,12 @@ services:
       - '9090:9090'
     networks:
       - monitoring-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
   grafana:
     image:
       grafana/grafana-enterprise
@@ -30,6 +36,12 @@ services:
       - '3000:3000'
     networks:
       - monitoring-network    
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
   loki:
     image: grafana/loki:2.8.4
     container_name:
@@ -43,6 +55,12 @@ services:
     command: -config.file=/etc/loki/loki-docker-config.yaml
     networks:
       - monitoring-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
   promtail:
     image: grafana/promtail:2.8.4
     container_name:
@@ -55,6 +73,12 @@ services:
     command: -config.file=/etc/promtail/promtail-docker-config.yaml
     networks:
       - monitoring-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
 
 networks:
   monitoring-network:
