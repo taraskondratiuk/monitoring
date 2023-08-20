@@ -36,7 +36,9 @@ services:
       loki
     ports:
       - "3100:3100"
-    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./loki-docker-config.yaml/etc/loki/loki-docker-config.yaml
+    command: -config.file=/etc/loki/loki-docker-config.yaml
     networks:
       - monitoring-network
   promtail:
